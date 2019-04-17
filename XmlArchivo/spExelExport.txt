@@ -1,0 +1,13 @@
+IF EXISTS(SELECT * FROM sys.objects WHERE object_id = 
+OBJECT_ID(N'[dbo].[ExportToExcel]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[ExportToExcel];
+CREATE PROCEDURE ExportToExcel
+AS
+DECLARE @Var VARCHAR(MAX);
+SET @Var = (
+SELECT(SELECT * FROM XmlTabla AS Propiedades FOR XML AUTO, ELEMENTS) AS COL_XML);
+
+SELECT @Var AS COL_XML;
+GO
+
+EXEC ExportToExcel
